@@ -1,0 +1,37 @@
+<div class="flex fixed h-16 top-0 w-full flex-row justify-between z-40 bg-white shadow-md text-gray-700">
+	<h1 class="text-lg font-serif m-4">CFA Tools</h1>
+	<div id="nav-hamburger" class="text-black self-center m-4">
+		<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onclick="openNav()">
+			<path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+		</svg>
+	</div>
+	<div id="nav-x" class="text-black self-center m-4 hidden">
+		<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" onclick="closeNav()">
+			<path d="M19.07 16.24l-4.83-4.83 4.83-4.83-1.41-1.41-4.83 4.83-4.83-4.83-1.41 1.41 4.83 4.83-4.83 4.83 1.41 1.41 4.83-4.83 4.83 4.83 1.41-1.41z"/>
+		</svg>
+	</div>
+</div>
+<div class="h-16"></div>
+<div id="nav-overlay" class="fixed top-0 z-30 w-full hidden h-full opacity-50 bg-black" onclick="closeNav()"></div>
+
+
+
+
+<script>
+
+	function openNav() {
+		document.querySelector("#nav-hamburger").classList.add("hidden")
+		document.querySelector("#nav-menu").classList.remove("hidden")
+        document.querySelector("#nav-x").classList.remove("hidden")
+        document.querySelector("#nav-overlay").classList.remove('hidden')
+    }
+
+    function closeNav() {
+		document.querySelector("#nav-hamburger").classList.remove("hidden")
+		document.querySelector("#nav-menu").classList.add("hidden")
+        document.querySelector("#nav-x").classList.add("hidden")
+        document.querySelector("#nav-overlay").classList.add('hidden')
+    }
+
+
+</script>
