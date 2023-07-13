@@ -1,4 +1,4 @@
-<div class="flex fixed h-16 top-0 w-full flex-row justify-between z-40 bg-gray-100 shadow-md text-gray-700">
+<div class="flex fixed h-16 top-0 w-full flex-row justify-between z-30 bg-gray-100 shadow-md text-gray-700">
 	<h1 class="text-lg font-serif m-4">CFA Tools</h1>
 	<div id="nav-hamburger" class="text-black self-center m-4">
 		<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" onclick="openNav()">
@@ -12,26 +12,12 @@
 	</div>
 </div>
 <div class="h-16"></div>
-<div id="nav-overlay" class="fixed top-0 z-30 w-full hidden h-full opacity-50 bg-black" onclick="closeNav()"></div>
+<div id="nav-overlay" class="fixed top-0 z-20 w-full hidden h-full opacity-50 bg-black" onclick="closeNav()"></div>
 
 
 
 
 <script>
-
-	function openNav() {
-		document.querySelector("#nav-hamburger").classList.add("hidden")
-		document.querySelector("#nav-menu").classList.remove("hidden")
-        document.querySelector("#nav-x").classList.remove("hidden")
-        document.querySelector("#nav-overlay").classList.remove('hidden')
-    }
-
-    function closeNav() {
-		document.querySelector("#nav-hamburger").classList.remove("hidden")
-		document.querySelector("#nav-menu").classList.add("hidden")
-        document.querySelector("#nav-x").classList.add("hidden")
-        document.querySelector("#nav-overlay").classList.add('hidden')
-    }
-
-
+	closeNav()
+	hideBigLoader()
 </script>

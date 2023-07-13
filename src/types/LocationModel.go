@@ -3,7 +3,6 @@ package types
 import (
 	"errors"
 	"strconv"
-	"strings"
 )
 
 type LocationModel struct {
@@ -22,7 +21,6 @@ func (m *LocationModel) SetUserID(userID int64) {
 }
 
 func (m *LocationModel) SetName(name string) error {
-	name = strings.ToLower(name)
 	if len(name) > 64 {
 		return errors.New("name too long")
 	}

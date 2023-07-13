@@ -6,18 +6,27 @@
     <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/output.css">
     <script src="/static/app.js"></script>
-    <title>Locations | CFA Tools</title>
+    <title>Single Location | CFA Tools</title>
 </head>
 <body>
 
     {{ template "Navbar.html" . }}
     {{ template "UserNavMenu.html" . }}
-    {{ template "LocationForm.html" . }}
-    {{ template "SelectLocation.html" . }}
-    {{ template "Footer.html" . }}
     {{ template "BigLoader.html" . }}
+	
+	<div class="m-2 bg-gray-100 border p-4 rounded-lg text-gray-700">
+		<div class="border-b pb-2">
+			<h2 id="location-name" class="font-serif text-lg mb-2">{{ .Location.Name }}</h2>
+			<p class="text-gray-500 text-xs">{{ .Location.Number }}</p>
+		</div>
+	</div>
 
-    
+	<div class="rounded-lg border p-4 bg-gray-100 m-2 text-gray-700">
+		<h2 class="font-serif text-lg mb-2">Cares Log</h2>
+		<p class="text-xs">Keeps track of negative guest experiences within our business.</p>
+	</div>
+	
+	{{ template "Footer.html" . }}
 
 </body>
 </html>
@@ -26,3 +35,4 @@
 	closeNav()
 	hideBigLoader()
 </script>
+

@@ -113,5 +113,14 @@ func (d *Database) GetLocationsByUserID(userID int64) ([]*LocationModel, error) 
 	}
 
 	return locations, nil
+}
 
+func (d *Database) GetLocationByID(locationID string) (*LocationModel, error) {
+	query := `SELECT id, user_id, name, number FROM location WHERE id = $1`
+	locationModel := NewLocationModel()
+	err := d.Connection.QueryRow(query, locationID).Scan(&locationModel.ID, &locationModel.UserID, &locationModel.Name, &locationModel.Number)
+	if err != nil {
+		return nil, err
+	}
+	return locationModel, nil
 }

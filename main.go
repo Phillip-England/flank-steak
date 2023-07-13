@@ -55,8 +55,6 @@ func main() {
 		})
 	})
 
-	//==========================================================================
-
 	r.GET("/signup", func(c *gin.Context) {
 		_, err := c.Cookie(os.Getenv("SESSION_TOKEN_KEY"))
 		if err == nil {
@@ -67,8 +65,6 @@ func main() {
 			"SignupFormErr": c.Query("SignupFormErr"),
 		})
 	})
-
-	//==========================================================================
 
 	r.GET("/locations", func(c *gin.Context) {
 		userModel := types.NewUserModel()
@@ -81,37 +77,35 @@ func main() {
 		if err != nil {
 			log.Panic(err.Error())
 		}
-		numberOfLocations := len(locations)
-		hasNoLocations := numberOfLocations == 0
-		hasMoreThanThreeLocations := numberOfLocations > 3
+		hasNoLocations := len(locations) == 0
+		fmt.Println(hasNoLocations)
 		c.HTML(200, "locations.html", gin.H{
 			"LocationFormErr": c.Query("LocationFormErr"),
-			"Locations": locations[:3],
-			"HasMoreThanThreeLocations": hasMoreThanThreeLocations,
+			"Locations": locations,
 			"HasNoLocations": hasNoLocations,
 		})
 	})
 
-	//==========================================================================
-
-	r.GET("/locations/all", func(c *gin.Context) {
+	r.GET("/location/:id", func(c *gin.Context) {
 		userModel := types.NewUserModel()
 		err := userModel.Auth(c, database)
 		if err != nil {
 			c.Redirect(303, "/")
 			return
 		}
-		locations, err := database.GetLocationsByUserID(userModel.ID)
+		locationID := c.Params.ByName("id")
+		locationModel, err := database.GetLocationByID(locationID)
 		if err != nil {
 			log.Panic(err.Error())
 		}
-		c.HTML(200, "AllLocations.html", gin.H{
-			"LocationFormErr": c.Query("LocationFormErr"),
-			"Locations": locations,
+		if (userModel.ID != locationModel.UserID) {
+			c.Redirect(303, "/locations")
+			return
+		}
+		c.HTML(200, "SingleLocation.html", gin.H{
+			"Location": locationModel,
 		})
 	})
-
-	//==========================================================================
 
 
 	r.GET("/logout", func(c *gin.Context) {
@@ -142,8 +136,6 @@ func main() {
 		c.Redirect(303, "/")
 	})
 
-	//==========================================================================
-
 	r.POST("/actions/login", func(c *gin.Context) {
 		userModel, err := types.NewUserModel().FindByEmail(database, c.PostForm("email"))
 		if err != nil {
@@ -168,8 +160,6 @@ func main() {
 		c.Redirect(303, "/locations")
 	})
 
-	//==========================================================================
-
 	r.POST("/actions/location", func(c *gin.Context) {
 		userModel := types.NewUserModel()
 		err := userModel.Auth(c, database)
@@ -190,6 +180,14 @@ func main() {
 			return
 		}
 		locationModel.SetUserID(userModel.ID)
+		locations, err := database.GetLocationsByUserID(userModel.ID)
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		if len(locations) >= 3 {
+			c.Redirect(303, fmt.Sprintf("/locations?LocationFormErr=%s", "only allowed 3 locations per user"))
+			return
+		}
 		err = locationModel.Insert(database)
 		if err != nil {
 			log.Panic(err.Error())

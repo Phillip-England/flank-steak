@@ -5,15 +5,7 @@
 	<input value="Chick-fil-A Southroads" name="name" type="text" class="p-2 text-xs outline-none mb-4 border rounded bg-white" />
 	<label for="password" class="text-xs mb-1">Number</label>
 	<input value="03253" name="number" type="text" class="p-2 text-xs mb-6 outline-none border rounded bg-white" />
-	<button type="submit" class="bg-gray-700 px-8 py-2 text-xs text-white rounded w-fit">
+	<button onclick="showBigLoader()" type="submit" class="bg-gray-700 px-8 py-2 text-xs text-white rounded w-fit">
 		<span id="location-form-submit-text">Submit</span>
-		<div id="location-form-submit-spinner" class="w-4 h-4 hidden animate-spin rounded-full border-gray-700 border-2 border-t-white"></div>
 	</button>
 </form>
-
-<script>
-	document.querySelector('#location-form').addEventListener('submit', () => {
-		document.querySelector('#location-form-submit-text').classList.add('hidden')
-		document.querySelector('#location-form-submit-spinner').classList.remove('hidden')
-	})
-</script>

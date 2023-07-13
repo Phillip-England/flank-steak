@@ -1,19 +1,32 @@
-<div class="bg-gray-100 text-gray-700 m-2 rounded-lg border">
-	<div class="p-4 rounded-t-lg flex flex-row justify-between items-center">
-		<h2 class="font-serif text-lg">Select a Location</h2>
-		{{ if .HasMoreThanThreeLocations }}
-		<div hx-boost="true" class="flex">
-			<a href="/locations/all" class=" underline text-xs pr-4">View More...</a>
-		</div>
-	{{ end }}
-	</div>
-	{{ range .Locations }}
-		<div class="m-4 mb-2 pb-2 border-b flex flex-row justify-between">
-			<div class="flex flex-col">
-				<h3 class="text-sm">{{ .Name }}</h2>
-				<p class="text-xs text-gray-400">{{ .Number }}</p>
+
+{{ if .Locations }}
+	<div hx-boost="true" class="bg-gray-100 text-gray-700 m-2 rounded-lg border">
+		<div class="p-4 rounded-t-lg flex flex-row justify-between items-center">
+			<h2 class="font-serif text-lg">Select a Location</h2>
+			{{ if .HasMoreThanThreeLocations }}
+			<div hx-boost="true" class="flex">
+				<a href="/locations/all" class=" underline text-xs pr-4">View More...</a>
 			</div>
-			<button hx-get class="bg-orange-700 px-4 py-2 m-2 rounded-lg text-white text-xs">Select</button>
-		</div>
 		{{ end }}
-</div>
+		</div>
+		{{ range .Locations }}
+			<div class="m-4 mb-2 pb-2 border-b flex flex-row justify-between">
+				<div class="flex flex-col">
+					<h3 class="text-sm mb-2">{{ .Name }}</h2>
+					<p class="text-xs text-gray-400">{{ .Number }}</p>
+				</div>
+				<div class="bg-orange-700 flex px-4 py-2 m-2 rounded text-white text-xs h-fit">
+					<a class="location-link" href="/location/{{ .ID }}" onclick="showBigLoader()">Select</a>
+					<div class="w-4 h-4 hidden animate-spin rounded-full border-gray-700 border-2 border-t-white"></div>
+				</div>
+			</div>
+			{{ end }}
+	</div>
+{{ end }}
+
+{{ if .HasNoLocations }}
+	<div class="bg-gray-100 text-gray-700 m-2 rounded-lg border p-4">
+		<h2 class="font-serif text-lg mb-2">So Empty</h2>
+		<p class="text-xs">Create a location to get started!</p>
+	</div>
+{{ end }}
