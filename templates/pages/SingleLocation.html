@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://kit.fontawesome.com/ef0709a418.js" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/output.css">
     <script src="/static/app.js"></script>
     <title>{{ .Location.Name }} | CFA Tools</title>
 </head>
-<body>
+<body x-data="{ bigLoader: false }">
 
     {{ template "Navbar.html" . }}
     {{ template "UserNavMenu.html" . }}
     {{ template "LocationDetails.html" . }}
     {{ template "BigLoader.html" . }}
 	
-
+	<div x-show="bigLoader" id="big-loader" class="w-full h-full fixed flex z-50 top-0 bg-black opacity-50 items-center justify-center">
+		<div class="w-24 h-24 animate-spin self-center rounded-full border-gray-700 border-4 border-t-gray-100 mb-60"></div>
+	</div>
 
 	<div hx-boost="true" class="rounded-lg border p-4 bg-gray-100 m-2 text-gray-700 flex flex-col">
 		<div class="flex flex-row border-b  pb-4 mb-4">
 			<h2 class="w-full font-serif text-lg mb-2">Cares Log</h2>
-			<a onclick="showBigLoader()" class="px-4 py-2 bg-main rounded text-xs w-fit text-white h-fit self-center">Select</a>
+			<a x-on:click="bigLoader = !bigLoader" class="px-4 py-2 bg-main rounded text-xs w-fit text-white h-fit self-center">Select</a>
 		</div>
 		<p class="text-xs">Keeps track of negative guest experiences within our business.</p>
 	</div>
