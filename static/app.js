@@ -7,11 +7,6 @@ function qsa(selector) {
 	return document.querySelectorAll(selector)
 }
 
-function hideAndShow(elementToHide, elementToShow) {
-	elementToHide.classList.add("hidden")
-	elementToShow.classList.remove('hidden')
-}
-
 function showBigLoader() {
 	let bigLoader = qs("#big-loader")
 	bigLoader.classList.toggle('hidden')
@@ -31,10 +26,31 @@ function hideBigLoader() {
 }
 
 function openNav() {
-	document.querySelector("#nav-hamburger").classList.add("hidden")
-	document.querySelector("#nav-menu").classList.remove("hidden")
-	document.querySelector("#nav-x").classList.remove("hidden")
-	document.querySelector("#nav-overlay").classList.remove('hidden')
+	let hamburger = qs('#nav-hamburger')
+	let menu = qs('#nav-menu')
+	let x = qs('#nav-x')
+	let overlay = qs('#nav-overlay')
+	links = menu.querySelectorAll('li')
+	links.forEach(link => {
+		let href = link.children[0].getAttribute('href')
+		if (href == window.location.pathname) {
+			link.classList.add('bg-gray-200')
+			link.classList.add('border-gray-400')
+			link.children[0].classList.add('bg-gray-200')
+		}
+	});
+	if (hamburger != null) {
+		hamburger.classList.add("hidden")
+	}
+	if (menu != null) {
+		menu.classList.remove("hidden")
+	}
+	if (x != null) {
+		x.classList.remove("hidden")
+	}
+	if (overlay != null) {
+		overlay.classList.remove('hidden')
+	}
 }
 
 function closeNav() {
