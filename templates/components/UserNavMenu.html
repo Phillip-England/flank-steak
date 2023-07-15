@@ -1,5 +1,10 @@
 <nav hx-boost="true" id="nav-menu" class="fixed hidden w-3/5 h-full bg-white z-30 text-gray-700 font-serif">
 	<ul>
+		{{ if .Location }}
+			<li onclick="showBigLoader()" class="p-1 bg-white m-2 border rounded-lg flex text-sm shadow-sm">
+				<a href="/location/{{ .Location.ID }}" class="flex-grow p-3">App Selection</a>
+			</li>
+		{{ end }}
 		<li onclick="showBigLoader()" class="p-1 bg-white m-2 border rounded-lg flex text-sm shadow-sm">
 			<a href="/locations" class="flex-grow p-3">Locations</a>
 		</li>

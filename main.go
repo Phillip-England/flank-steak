@@ -107,7 +107,7 @@ func main() {
 		}
 		c.HTML(200, "SingleLocation.html", gin.H{
 			"Location": locationModel,
-			"Banner": locationModel.Name,
+			"Banner": "App Selection",
 		})
 	})
 
