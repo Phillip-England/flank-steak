@@ -51,6 +51,7 @@ func main() {
 			return
 		}
 		c.HTML(200, "index.html", gin.H{
+			"Banner": "CFA Tools",
 			"LoginFormErr": c.Query("LoginFormErr"),
 		})
 	})
@@ -62,6 +63,7 @@ func main() {
 			return
 		}
 		c.HTML(200, "signup.html", gin.H{
+			"Banner": "CFA Tools",
 			"SignupFormErr": c.Query("SignupFormErr"),
 		})
 	})
@@ -83,6 +85,7 @@ func main() {
 			"LocationFormErr": c.Query("LocationFormErr"),
 			"Locations": locations,
 			"HasNoLocations": hasNoLocations,
+			"Banner": "Locations Dashboard",
 		})
 	})
 
@@ -104,6 +107,7 @@ func main() {
 		}
 		c.HTML(200, "SingleLocation.html", gin.H{
 			"Location": locationModel,
+			"Banner": locationModel.Name,
 		})
 	})
 

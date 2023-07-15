@@ -15,10 +15,17 @@
 					<h3 class="text-sm mb-2">{{ .Name }}</h2>
 					<p class="text-xs text-gray-400">{{ .Number }}</p>
 				</div>
-				<div class="bg-main flex px-4 py-2 m-2 rounded text-white text-xs h-fit">
+				<a href="/location/{{ .ID }}" onclick="showBigLoader()">
+					<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 12H6.5M20 12L14 6M20 12L14 18M20 12H9.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</a>
+
+
+				<!-- <div class="bg-main flex px-4 py-2 m-2 rounded text-white text-xs h-fit">
 					<a class="location-link" href="/location/{{ .ID }}" onclick="showBigLoader()">Select</a>
 					<div class="w-4 h-4 hidden animate-spin rounded-full border-gray-700 border-2 border-t-white"></div>
-				</div>
+				</div> -->
 			</div>
 			{{ end }}
 	</div>
