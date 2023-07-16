@@ -111,6 +111,28 @@ func main() {
 		})
 	})
 
+	r.GET("/location/settings/:id", func(c *gin.Context) {
+		userModel := types.NewUserModel()
+		err := userModel.Auth(c, database)
+		if err != nil {
+			c.Redirect(303, "/")
+			return
+		}
+		locationID := c.Params.ByName("id")
+		locationModel, err := database.GetLocationByID(locationID)
+		if err != nil {
+			log.Panic(err.Error())
+		}
+		if (userModel.ID != locationModel.UserID) {
+			c.Redirect(303, "/locations")
+			return
+		}
+		c.HTML(200, "LocationSettings.html", gin.H{
+			"Location": locationModel,
+			"Banner": "Location Settings",
+		})
+	})
+
 
 	r.GET("/logout", func(c *gin.Context) {
 		c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), "", -1, "/", "localhost", true, true)
@@ -197,6 +219,14 @@ func main() {
 			log.Panic(err.Error())
 		}
 		c.Redirect(303, "/locations")
+	})
+
+	//==========================================================================
+	// COMPONENTS
+	//==========================================================================
+
+	r.GET("/c/GuestNavMenu", func(c *gin.Context) {
+		c.HTML(200, "GuestNavMenu.html", nil)
 	})
 
 	//==========================================================================

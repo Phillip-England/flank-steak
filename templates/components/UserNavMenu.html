@@ -4,9 +4,12 @@
 			<li onclick="showBigLoader()" class="p-1 bg-white m-2 border rounded-lg flex text-sm shadow-sm">
 				<a href="/location/{{ .Location.ID }}" class="flex-grow p-3">App Selection</a>
 			</li>
+			<li onclick="showBigLoader()" class="p-1 bg-white m-2 border rounded-lg flex text-sm shadow-sm">
+				<a href="/location/settings/{{ .Location.ID }}" class="flex-grow p-3">Location Settings</a>
+			</li>			
 		{{ end }}
 		<li onclick="showBigLoader()" class="p-1 bg-white m-2 border rounded-lg flex text-sm shadow-sm">
-			<a href="/locations" class="flex-grow p-3">Locations</a>
+			<a href="/locations" class="flex-grow p-3">Select Location</a>
 		</li>
 		<li onclick="showBigLoader()" class="p-1 bg-white m-2 border rounded-lg flex text-sm shadow-sm">
 			<a href="/logout" class="flex-grow p-3">Logout</a>

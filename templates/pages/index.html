@@ -5,7 +5,11 @@
     <title>Log In | CFA Tools</title>
 </head>
 <body>
+
     {{ template "Navbar.html" . }}
+
+    <div id="nav-menu-container"></div>
+
     {{ template "GuestNavMenu.html" . }}
     {{ template "LoginForm.html" . }}
     {{ template "BigLoader.html" . }}
@@ -13,6 +17,6 @@
 </html>
 
 <script>
-    hideBigLoader()
-    closeNav()
+    // hideBigLoader()
+    // closeNav()
 </script>
