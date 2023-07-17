@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -172,7 +173,7 @@ func main() {
 	})
 
 	r.POST("/actions/login", func(c *gin.Context) {
-		userModel, err := types.NewUserModel().FindByEmail(database, c.PostForm("email"))
+		userModel, err := types.NewUserModel().FindByEmail(database, strings.ToLower(c.PostForm("email")))
 		if err != nil {
 			c.Redirect(303, fmt.Sprintf("/?LoginFormErr=%s", "invalid credentials"))
 			return
