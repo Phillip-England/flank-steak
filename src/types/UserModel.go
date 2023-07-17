@@ -11,28 +11,20 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-//===========================================================================
-
 type UserModel struct {
 	ID int64
 	Email string
 	Password string
 }
 
-//==========================================================================
-
 func NewUserModel() (*UserModel) {
 	return &UserModel{}
 }
-
-//==========================================================================
 
 func (userModel *UserModel) SetEmail(email string) (*UserModel) {
 	userModel.Email = strings.ToLower(email)
 	return userModel
 }
-
-//==========================================================================
 
 func (userModel *UserModel) SetPassword(password string) (*UserModel, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -43,14 +35,10 @@ func (userModel *UserModel) SetPassword(password string) (*UserModel, error) {
 	return userModel, nil
 }
 
-//==========================================================================
-
 func (userModel *UserModel) SetID(id int64) (*UserModel) {
 	userModel.ID = id
 	return userModel
 }
-
-//==========================================================================
 
 func (userModel *UserModel) Validate(database *Database) error {
 	if userModel.Email == "" {
@@ -75,8 +63,6 @@ func (userModel *UserModel) Validate(database *Database) error {
 	return nil
 }
 
-//==========================================================================
-
 func (userModel *UserModel) Insert(database *Database) error {
 	statement := `INSERT INTO "user" (email, password) VALUES ($1, $2) RETURNING id`
 	err := database.Connection.QueryRow(statement, userModel.Email, userModel.Password).Scan(&userModel.ID)
@@ -85,8 +71,6 @@ func (userModel *UserModel) Insert(database *Database) error {
 	}
 	return nil
 }
-
-//==========================================================================
 
 func (userModel *UserModel) FindByEmail(database *Database, email string) (*UserModel, error) {
 	query := `SELECT id, email, password FROM "user" WHERE email = $1`
@@ -101,8 +85,6 @@ func (userModel *UserModel) FindByEmail(database *Database, email string) (*User
 	return userModel, nil
 }
 
-//==========================================================================
-
 func (userModel *UserModel) DeleteSessionsByUser(database *Database) error {
 	query := `DELETE FROM session WHERE user_id = $1`
 	_, err := database.Connection.Exec(query, userModel.ID)
@@ -112,8 +94,6 @@ func (userModel *UserModel) DeleteSessionsByUser(database *Database) error {
 	return nil
 }
 
-//==========================================================================
-
 func (userModel *UserModel) ComparePassword(password string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(userModel.Password), []byte(password))
 	if err != nil {
@@ -121,8 +101,6 @@ func (userModel *UserModel) ComparePassword(password string) error {
 	}
 	return nil
 }
-
-//==========================================================================
 
 func (userModel *UserModel) Auth(c *gin.Context, database *Database) error {
 	sessionToken, err := c.Cookie(os.Getenv("SESSION_TOKEN_KEY"))
@@ -148,8 +126,6 @@ func (userModel *UserModel) Auth(c *gin.Context, database *Database) error {
 	return nil
 }
 
-//==========================================================================
-
 func (userModel *UserModel) FindById(database *Database, userId int64) (error) {
 	query := `SELECT id, email, password FROM "user" WHERE id = $1`
 	row := database.Connection.QueryRow(query, userId)
@@ -159,7 +135,3 @@ func (userModel *UserModel) FindById(database *Database, userId int64) (error) {
 	}
 	return nil
 }
-
-//==========================================================================
-
-//==========================================================================

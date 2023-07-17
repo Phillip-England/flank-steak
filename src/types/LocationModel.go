@@ -55,4 +55,21 @@ func (m *LocationModel) Insert(database *Database) error {
 	return nil
 }
 
+func (m *LocationModel) GetByID(locationID string, database *Database) error {
+	query := `SELECT id, user_id, name, number FROM location WHERE id = $1`
+	err := database.Connection.QueryRow(query, locationID).Scan(&m.ID, &m.UserID, &m.Name, &m.Number)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *LocationModel) Update(database *Database) error {
+	statement := `UPDATE location SET name = $1, number = $2 WHERE id = $3`
+	_, err := database.Connection.Exec(statement, m.Name, m.Number, m.ID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 

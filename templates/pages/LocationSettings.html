@@ -18,5 +18,12 @@
     closeNav()
     hideBigLoader()
     closeDeleteLocationConfirmation()
-    closeUpdateLocationForm()
 </script>
+
+{{ if .UpdateLocationFormOpen }}
+    <!-- do not close the update location form -->
+{{ else }}
+    <script>
+        closeUpdateLocationForm()
+    </script>
+{{ end }}

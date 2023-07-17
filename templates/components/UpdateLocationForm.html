@@ -1,14 +1,14 @@
-<form id="location-form" hx-boost="true" method=POST action="/actions/location" class="bg-gray-100 border m-2 rounded-lg flex flex-col p-4 text-gray-700">
+<form id="location-form" hx-boost="true" method=PUT action="/actions/location" class="bg-gray-100 border m-2 rounded-lg flex flex-col p-4 text-gray-700">
 	<div class="flex justify-between flex-row">
 		<h2 class="font-serif text-lg">Update Location</h2>
-		<div onclick="openUpdateLocationForm()" id="update-location-caret-right" class="w-6 h-6">
+		<div onclick="openUpdateLocationForm()" id="update-location-caret-right" class="w-6 h-6 {{ if .UpdateLocationFormOpen }} hidden {{ end }} ">
 			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<g id="Arrow / Caret_Right_SM">
 					<path id="Vector" d="M11 9L14 12L11 15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</g>
 			</svg>
 		</div>
-		<div onclick="closeUpdateLocationForm()" id="update-location-caret-down" class="h-6 w-6 hidden">
+		<div onclick="closeUpdateLocationForm()" id="update-location-caret-down" class="h-6 w-6  {{ if .UpdateLocationFormOpen }} {{ else }} hidden {{ end }}">
 			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<g id="Arrow / Caret_Down_MD">
 					<path id="Vector" d="M16 10L12 14L8 10" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -16,14 +16,16 @@
 			</svg>
 		</div>
 	</div>
-	<div id="update-location-form-inputs" class="hidden mt-4 flex flex-col">
-		<p class="mb-4 text-xs text-red-700">{{ .LocationFormErr }}</p>
-		<label for="email" class="text-xs mb-1">Name</label>
-		<input value="{{ .Location.Name }}" name="name" type="text" class="p-2 text-xs outline-none mb-4 border rounded bg-white" />
-		<label for="password" class="text-xs mb-1">Number</label>
-		<input value="{{ .Location.Number }}" name="number" type="text" class="p-2 text-xs mb-6 outline-none border rounded bg-white" />
-		<button onclick="showBigLoader()" type="submit" class="bg-gray-700 px-8 py-2 text-xs text-white rounded w-fit">
-			<span id="location-form-submit-text">Update</span>
-		</button>
+		<div id="update-location-form-inputs" class="{{ if .UpdateLocationFormOpen }} {{ else }} hidden {{ end }} mt-4 flex flex-col">
+			<p class="mb-4 text-xs text-red-700">{{ .UpdateLocationFormErr }}</p>
+			<label for="email" class="text-xs mb-1">Name</label>
+			<input value="{{ .Location.Name }}" name="name" type="text" class="p-2 text-xs outline-none mb-4 border rounded bg-white" />
+			<label for="password" class="text-xs mb-1">Number</label>
+			<input value="{{ .Location.Number }}" name="number" type="text" class="p-2 text-xs mb-6 outline-none border rounded bg-white" />
+			<input type="hidden" name="id" value="{{ .Location.ID }}" />
+			<button onclick="showBigLoader()" type="submit" class="bg-gray-700 px-8 py-2 text-xs text-white rounded w-fit">
+				<span id="location-form-submit-text">Update</span>
+			</button>
+		</div>
 	</div>
 </form>

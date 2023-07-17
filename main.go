@@ -80,7 +80,6 @@ func main() {
 			log.Panic(err.Error())
 		}
 		hasNoLocations := len(locations) == 0
-		fmt.Println(hasNoLocations)
 		c.HTML(200, "locations.html", gin.H{
 			"LocationFormErr": c.Query("LocationFormErr"),
 			"Locations": locations,
@@ -127,9 +126,14 @@ func main() {
 			c.Redirect(303, "/locations")
 			return
 		}
+
+			fmt.Println(c.Query("LocationFormOpen"))
+
 		c.HTML(200, "LocationSettings.html", gin.H{
 			"Location": locationModel,
 			"Banner": "Location Settings",
+			"UpdateLocationFormErr": c.Query("UpdateLocationFormErr"),
+			"UpdateLocationFormOpen": c.Query("UpdateLocationFormOpen"),
 		})
 	})
 
@@ -193,11 +197,10 @@ func main() {
 			c.Redirect(303, "/")
 			return
 		}
-		fmt.Println(userModel)
 		locationModel := types.NewLocationModel()
 		err = locationModel.SetName(c.PostForm("name"))
 		if err != nil {
-			c.Redirect(303, fmt.Sprintf("/locations?LocationFormErr=%s", err.Error()))
+			c.Redirect(303, fmt.Sprintf("/location?LocationFormErr=%s", err.Error()))
 			return
 		}
 		err = locationModel.SetNumber(c.PostForm("number"))
@@ -219,6 +222,40 @@ func main() {
 			log.Panic(err.Error())
 		}
 		c.Redirect(303, "/locations")
+	})
+
+	r.PUT("/actions/location", func(c *gin.Context) {
+		userModel := types.NewUserModel()
+		err := userModel.Auth(c, database)
+		if err != nil {
+			c.Redirect(303, "/")
+			return
+		}
+		locationModel := types.NewLocationModel()
+		err = locationModel.GetByID(c.PostForm("id"), database)
+		if err != nil {
+			c.Redirect(303, fmt.Sprintf("/location/settings/%s?UpdateLocationFormErr=%s&UpdateLocationFormOpen=true", fmt.Sprint(userModel.ID), err.Error()))
+			return
+		}
+		if (locationModel.UserID != userModel.ID) {
+			c.Redirect(303, fmt.Sprintf("/location/settings/%s?UpdateLocationFormErr=%s&UpdateLocationFormOpen=true", fmt.Sprint(userModel.ID), "forbidden"))
+			return
+		}
+		err = locationModel.SetName(c.PostForm("name"))
+		if err != nil {
+			c.Redirect(303, fmt.Sprintf("/location/settings/%s?UpdateLocationFormErr=%s&UpdateLocationFormOpen=true", fmt.Sprint(userModel.ID), err.Error()))
+			return
+		}
+		err = locationModel.SetNumber(c.PostForm("number"))
+		if err != nil {
+			c.Redirect(303, fmt.Sprintf("/location/settings/%s?UpdateLocationFormErr=%s&UpdateLocationFormOpen=true", fmt.Sprint(userModel.ID), err.Error()))
+			return
+		}
+		err = locationModel.Update(database)
+		if err != nil {
+			log.Panic(err.Error())
+		}
+		c.Redirect(303, fmt.Sprintf("/location/%s", fmt.Sprint(locationModel.ID)))
 	})
 
 	//==========================================================================
