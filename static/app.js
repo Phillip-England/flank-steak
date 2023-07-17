@@ -70,12 +70,51 @@ function closeNav() {
 	if (overlay != null) {
 		overlay.classList.add('hidden')
 	}
-
 }
 
+function openDeleteLocationConfirmation() {
+	let caretRight = qs('#delete-location-caret-right')
+	let caretDown = qs('#delete-location-caret-down')
+	let deleteLocationConfirmationSection = qs('#delete-location-confirmation-section')
+	if (caretDown != null && caretRight != null && deleteLocationConfirmationSection != null) {
+		caretRight.classList.add('hidden')
+		caretDown.classList.remove('hidden')
+		deleteLocationConfirmationSection.classList.remove('hidden')
+	}
+}
 
+function closeDeleteLocationConfirmation() {
+	let caretRight = qs('#delete-location-caret-right')
+	let caretDown = qs('#delete-location-caret-down')
+	let deleteLocationConfirmationSection = qs('#delete-location-confirmation-section')
+	if (caretDown != null && caretRight != null && deleteLocationConfirmationSection != null) {
+		caretRight.classList.remove('hidden')
+		caretDown.classList.add('hidden')
+		deleteLocationConfirmationSection.classList.add('hidden')
+	}
+}
 
+function openUpdateLocationForm() {
+	let caretRight =  qs('#update-location-caret-right')
+	let caretDown = qs('#update-location-caret-down')
+	let updateLocationForm = qs('#update-location-form-inputs')
+	if (caretDown != null && caretRight != null && updateLocationForm != null) {
+		caretDown.classList.remove('hidden')
+		caretRight.classList.add('hidden')
+		updateLocationForm.classList.remove('hidden')
+	}
+}
 
+function closeUpdateLocationForm() {
+	let caretRight =  qs('#update-location-caret-right')
+	let caretDown = qs('#update-location-caret-down')
+	let updateLocationForm = qs('#update-location-form-inputs')
+	if (caretDown != null && caretRight != null && updateLocationForm != null) {
+		caretDown.classList.add('hidden')
+		caretRight.classList.remove('hidden')
+		updateLocationForm.classList.add('hidden')
+	}
+}
 
 
 
