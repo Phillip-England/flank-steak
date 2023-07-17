@@ -53,8 +53,7 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 		_, err := c.Cookie(os.Getenv("SESSION_TOKEN_KEY"))
 		if err == nil {
-			c.Redirect(303, "/locations")
-			return
+			c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), "", -1, "/", os.Getenv("URL"), true, true)
 		}
 		c.HTML(200, "index.html", gin.H{
 			"Banner": "CFA Tools",
@@ -65,8 +64,7 @@ func main() {
 	r.GET("/signup", func(c *gin.Context) {
 		_, err := c.Cookie(os.Getenv("SESSION_TOKEN_KEY"))
 		if err == nil {
-			c.Redirect(303, "/locations")
-			return
+			c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), "", -1, "/", os.Getenv("URL"), true, true)
 		}
 		c.HTML(200, "signup.html", gin.H{
 			"Banner": "CFA Tools",
