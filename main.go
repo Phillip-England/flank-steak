@@ -17,7 +17,7 @@ func main() {
 	// CONFIG
 	//==========================================================================
 
-	_ := godotenv.Load()
+	_ = godotenv.Load()
 
 	
 	//==========================================================================
@@ -25,7 +25,7 @@ func main() {
 	//==========================================================================
 
 	database := types.NewDatabase()
-	err = database.InitTables()
+	err := database.InitTables()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
