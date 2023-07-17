@@ -1,4 +1,1 @@
-Project requires a .env file with..
-
-POSTGRES_URL which is your postgres url string
-SESSION_TOKEN_KEY which is a random string to serve as a token key
+You need a .env file with a valid POSTGRES_URL and a random string of characters called SESSION_TOKEN_KEY in the ROOT of your project if you intend to clone the repo.
