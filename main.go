@@ -39,7 +39,7 @@ func main() {
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://example.com"} // Update with your allowed origins
 	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
-	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization", "Set-Cookie"}
 	r.Use(cors.New(config))
 	r.LoadHTMLGlob("./templates/**/*")
 	r.Static("/static", "./static")
