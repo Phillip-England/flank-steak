@@ -144,7 +144,7 @@ func main() {
 
 
 	r.GET("/logout", func(c *gin.Context) {
-		c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), "", -1, "/", "localhost", true, true)
+		c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), "", -1, "/", os.Getenv("URL"), true, true)
 		c.Redirect(303, "/")
 	})
 
@@ -191,7 +191,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err.Error())
 		}
-		c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), sessionModel.Token, 86400, "/", "localhost", true, true)
+		c.SetCookie(os.Getenv("SESSION_TOKEN_KEY"), sessionModel.Token, 86400, "/", os.Getenv("URL"), true, true)
 		c.Redirect(303, "/locations")
 	})
 
