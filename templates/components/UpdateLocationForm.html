@@ -1,5 +1,5 @@
 <form id="location-form" hx-boost="true" method=PUT action="/actions/location" class="bg-gray-100 border m-2 rounded-lg flex flex-col p-4 text-gray-700">
-	<div class="flex justify-between flex-row">
+	<div class="flex flex-row justify-between w-full">
 		<h2 onclick="openUpdateLocationForm()" class="font-serif text-lg">Update Location</h2>
 		<div onclick="openUpdateLocationForm()" id="update-location-caret-right" class="flex justify-end flex-grow grow-1 {{ if .UpdateLocationFormOpen }} hidden {{ end }} ">
 			<svg viewBox="0 0 24 24" height="24px" width="24px" fill="none" xmlns="http://www.w3.org/2000/svg">
