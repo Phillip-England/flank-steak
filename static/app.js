@@ -74,22 +74,18 @@ function closeNav() {
 
 function openDeleteLocationConfirmation() {
 	let caretRight = qs('#delete-location-caret-right')
-	let caretDown = qs('#delete-location-caret-down')
 	let deleteLocationConfirmationSection = qs('#delete-location-confirmation-section')
-	if (caretDown != null && caretRight != null && deleteLocationConfirmationSection != null) {
+	if (caretRight != null && deleteLocationConfirmationSection != null) {
 		caretRight.classList.add('hidden')
-		caretDown.classList.remove('hidden')
 		deleteLocationConfirmationSection.classList.remove('hidden')
 	}
 }
 
 function closeDeleteLocationConfirmation() {
 	let caretRight = qs('#delete-location-caret-right')
-	let caretDown = qs('#delete-location-caret-down')
 	let deleteLocationConfirmationSection = qs('#delete-location-confirmation-section')
-	if (caretDown != null && caretRight != null && deleteLocationConfirmationSection != null) {
+	if (caretRight != null && deleteLocationConfirmationSection != null) {
 		caretRight.classList.remove('hidden')
-		caretDown.classList.add('hidden')
 		deleteLocationConfirmationSection.classList.add('hidden')
 	}
 }

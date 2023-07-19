@@ -262,6 +262,27 @@ func main() {
 		c.Redirect(303, fmt.Sprintf("/location/%s", fmt.Sprint(locationModel.ID)))
 	})
 
+	r.DELETE("/actions/location", func(c *gin.Context) {
+		userModel := types.NewUserModel()
+		err := userModel.Auth(c, database)
+		if err != nil {
+			c.Redirect(303, "/")
+			return
+		}
+		locationModel := types.NewLocationModel()
+		err = locationModel.GetByID(c.Query("LocationID"), database)
+		if err != nil {
+			c.Redirect(303, "/locations")
+			return
+		}
+		if locationModel.UserID != userModel.ID {
+			c.Redirect(303, "/locations")
+			return
+		}
+		fmt.Println("yo")
+		c.Redirect(303, fmt.Sprintf("/location/settings/%s", fmt.Sprint(locationModel.ID)))
+	})
+
 	//==========================================================================
 	// COMPONENTS
 	//==========================================================================

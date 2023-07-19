@@ -1,15 +1,15 @@
 <form id="location-form" hx-boost="true" method=PUT action="/actions/location" class="bg-gray-100 border m-2 rounded-lg flex flex-col p-4 text-gray-700">
 	<div class="flex justify-between flex-row">
-		<h2 class="font-serif text-lg">Update Location</h2>
-		<div onclick="openUpdateLocationForm()" id="update-location-caret-right" class="w-6 h-6 {{ if .UpdateLocationFormOpen }} hidden {{ end }} ">
-			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<h2 onclick="openUpdateLocationForm()" class="font-serif text-lg">Update Location</h2>
+		<div onclick="openUpdateLocationForm()" id="update-location-caret-right" class="flex justify-end flex-grow grow-1 {{ if .UpdateLocationFormOpen }} hidden {{ end }} ">
+			<svg viewBox="0 0 24 24" height="24px" width="24px" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<g id="Arrow / Caret_Right_SM">
 					<path id="Vector" d="M11 9L14 12L11 15" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</g>
 			</svg>
 		</div>
-		<div onclick="closeUpdateLocationForm()" id="update-location-caret-down" class="h-6 w-6  {{ if .UpdateLocationFormOpen }} {{ else }} hidden {{ end }}">
-			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<div onclick="closeUpdateLocationForm()" id="update-location-caret-down" class="flex justify-end flex-grow grow-1 {{ if .UpdateLocationFormOpen }} {{ else }} hidden {{ end }}">
+			<svg viewBox="0 0 24 24" fill="none" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg">
 				<g id="Arrow / Caret_Down_MD">
 					<path id="Vector" d="M16 10L12 14L8 10" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</g>
