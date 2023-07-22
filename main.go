@@ -3,6 +3,7 @@ package main
 import (
 	"flank-steak/src/types"
 	"fmt"
+	"html/template"
 	"log"
 	"os"
 	"strings"
@@ -57,7 +58,7 @@ func main() {
 		}
 		c.HTML(200, "index.html", gin.H{
 			"Banner": "CFA Tools",
-			"LoginFormErr": c.Query("LoginFormErr"),
+			"LoginFormErr": template.HTMLEscapeString(c.Query("LoginFormErr")),
 		})
 	})
 
@@ -279,16 +280,18 @@ func main() {
 			c.Redirect(303, "/locations")
 			return
 		}
-		fmt.Println("yo")
 		c.Redirect(303, fmt.Sprintf("/location/settings/%s", fmt.Sprint(locationModel.ID)))
 	})
 
 	//==========================================================================
-	// COMPONENTS
+	// HTMX ACTIONS
 	//==========================================================================
 
-	r.GET("/c/GuestNavMenu", func(c *gin.Context) {
-		c.HTML(200, "GuestNavMenu.html", nil)
+	r.POST("/c/Navbar", func(c *gin.Context) {
+		banner := template.HTMLEscapeString(c.Query("Banner"))
+		c.HTML(200, "Navbar.html", gin.H{
+			"Banner": banner,
+		})
 	})
 
 	//==========================================================================
