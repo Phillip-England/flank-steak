@@ -204,7 +204,7 @@ func main() {
 		locationModel := types.NewLocationModel()
 		err = locationModel.SetName(c.PostForm("name"))
 		if err != nil {
-			c.Redirect(303, fmt.Sprintf("/location?LocationFormErr=%s", err.Error()))
+			c.Redirect(303, fmt.Sprintf("/locations?LocationFormErr=%s", err.Error()))
 			return
 		}
 		err = locationModel.SetNumber(c.PostForm("number"))
@@ -279,8 +279,12 @@ func main() {
 			c.Redirect(303, "/locations")
 			return
 		}
-		fmt.Println("yo")
-		c.Redirect(303, fmt.Sprintf("/location/settings/%s", fmt.Sprint(locationModel.ID)))
+		err = locationModel.Delete(database)
+		if err != nil {
+			log.Panic(err.Error())
+			return
+		}
+		c.Redirect(303, "/locations")
 	})
 
 	//==========================================================================

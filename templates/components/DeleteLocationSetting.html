@@ -1,5 +1,5 @@
 <div class="p-4 m-2 bg-gray-100 border rounded-lg flex flex-col">
-	<div class="flex flex-row justify-between w-full">
+	<div onclick="openDeleteLocationConfirmation()" class="flex flex-row justify-between w-full">
 		<h2 onclick="openDeleteLocationConfirmation()" class="text-lg font-serif text-gray-700">Delete Location</h2>
 		<div onclick="openDeleteLocationConfirmation()" id="delete-location-caret-right" class="w-6 h-6">
 			<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@
 		<p class="mb-6 text-xs">Are you sure you want to delete {{ .Location.Name }}?</p>
 		<div class="flex flex-row justify-between text-sm">
 			<form hx-boost="true" method="DELETE" action="/actions/location?LocationID={{ .Location.ID }}">
-				<button class="text-red-700 underline">Delete Location</button>
+				<button onclick="showBigLoader()" class="text-red-700 underline">Delete Location</button>
 			</form>
 			<button onclick="closeDeleteLocationConfirmation()" class="underline">Cancel</button>
 		</div>

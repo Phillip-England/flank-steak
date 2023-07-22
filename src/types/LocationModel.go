@@ -2,6 +2,7 @@ package types
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 )
 
@@ -67,6 +68,16 @@ func (m *LocationModel) GetByID(locationID string, database *Database) error {
 func (m *LocationModel) Update(database *Database) error {
 	statement := `UPDATE location SET name = $1, number = $2 WHERE id = $3`
 	_, err := database.Connection.Exec(statement, m.Name, m.Number, m.ID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *LocationModel) Delete(database *Database) error {
+	fmt.Println(m.ID)
+	statement := `DELETE FROM location WHERE id = $1`
+	_, err := database.Connection.Exec(statement, m.ID)
 	if err != nil {
 		return err
 	}
